@@ -1,0 +1,13 @@
+[
+	{	
+		"name": "analysis_and_fits_dyn_clicks",
+		"type": "git",
+		"url": "https://github.com/aernesto/analysis_and_fits_dyn_clicks.git"
+	},
+	{
+         	"name": "ideal_obs_dyn_clicks",
+         	"type": "git",
+         	"url": "https://github.com/aernesto/ideal_obs_dyn_clicks.git",
+         	"toolboxRoot": "#ideal_obs_dyn_clicks"
+     	}
+]
