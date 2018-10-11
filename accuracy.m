@@ -23,6 +23,8 @@ db_params=fetch_params(dbname,model_type);
 num_trials=length(correct_choices);
 model_choices=zeros(1,num_trials);
 
+rng('shuffle') % change seed if reproducibility desired
+
 % this loop is probably not efficient, but it will do for now
 for tr=1:num_trials
     [left_train,right_train]=trials{1:2,tr};
