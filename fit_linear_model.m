@@ -9,6 +9,7 @@ function [posterior, point_estimate]=fit_linear_model(ref_model, dbname,...
 %   ntrials     -- number of trials to use for the fit 
 %   ndiscount   -- number of discounting param values to use for likelihood
 %   shuffle_db  -- boolean. If true, trials are randomly permuted
+% WARNING: The shuffle_db=true flag doesn't currently work
 % NOTES:
 %   Calls: llh2density() & lhd_lin_sing_tr_gauss_clicks()
 
@@ -40,7 +41,7 @@ else
 end
 
 tot_trials_db = size(all_trials,2);                 % total number of trials in DB
-fprintf('tot_trials_db = %f',tot_trials_db)
+
 all_trials = all_trials(1:2,:);
 
 tic
@@ -78,9 +79,10 @@ point_estimate=gs(idx1);
 llh=llh+abs(max_val);
 
 posterior=llh2density(llh,dg);           % convert log-lh to density
-subplot(2,1,1)
-plot(gs,llh)
-subplot(2,1,2)
-plot(gs,posterior)
+
+% plots for debugging
+subplot(2,1,1); plot(gs,llh)
+subplot(2,1,2); plot(gs,posterior)
+
 toc
 end
