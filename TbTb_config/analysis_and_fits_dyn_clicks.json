@@ -9,5 +9,11 @@
          	"type": "git",
          	"url": "https://github.com/aernesto/ideal_obs_dyn_clicks.git",
          	"toolboxRoot": "#ideal_obs_dyn_clicks"
-     	}
+     	},
+	{
+		"name": "Data_IO_Clicks_Project",
+		"type": "git",
+		"url": "https://github.com/aernesto/Data_IO_Clicks_Project.git",
+		"toolboxRoot": "#Data_IO_Clicks_Projects"
+	}
 ]
