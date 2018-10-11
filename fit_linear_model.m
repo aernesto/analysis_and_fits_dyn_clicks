@@ -1,12 +1,13 @@
 function [posterior, point_estimate]=fit_linear_model(ref_model, dbname,...
-    disc_prior,ntrials,ndiscount,shuffle_db)
+    disc_prior,trial_range,ndiscount,shuffle_db)
 % fits the stochastic linear model to data
 % ARGUMENTS:
 %   ref_model   -- string. either 'lin' or 'nonlin'
 %   dbname      -- string. full path to .h5 db file
 %   disc_prior  -- 1-by-2 vector describing the endpoints of the support
 %                   for the prior over the discounting parameter
-%   ntrials     -- number of trials to use for the fit 
+%   trial_range -- 1-by-2 vec describing range of trials to use for fit 
+%                  (endpoints included) 
 %   ndiscount   -- number of discounting param values to use for likelihood
 %   shuffle_db  -- boolean. If true, trials are randomly permuted
 % WARNING: The shuffle_db=true flag doesn't currently work
@@ -19,42 +20,25 @@ gs=linspace(gstart, gend, ndiscount);
 dg=(gend-gstart)/(ndiscount-1);  % step between consecutive samples
 
 % database info (where the clicks data and other parameter values reside)
-filename = dbname;
-file_info = h5info(filename);
-group_name = file_info.Groups.Name;
-info_dset_name=[group_name,'/trial_info'];
-
-T = h5readatt(filename, info_dset_name,'T');        % Trial duration in sec
-nsd = h5readatt(filename,[group_name,'/decision_',ref_model],'noise');
-low_rate = h5readatt(filename, info_dset_name,'low_click_rate'); % click rates
-high_rate = h5readatt(filename, info_dset_name,'high_click_rate');
-k=log(high_rate/low_rate);                          % jump in evidence at clicks
-all_trials = h5read(filename, [group_name,'/trials']); % clicks data
+params=fetch_params(dbname, ref_model);
+trials = fetch_trials(dbname,trial_range); % clicks data
 
 % extract reference decisions into row vector:
-if strcmp(ref_model,'lin')
-    ref_decisions = h5read(filename,...
-        [group_name,'/decision_lin'], [1 1], [1 Inf]);
-else
-    ref_decisions = h5read(filename,...
-        [group_name,'/decision_nonlin'], [1 1], [1 Inf]);
-end
-
-tot_trials_db = size(all_trials,2);                 % total number of trials in DB
-
-all_trials = all_trials(1:2,:);
+ref_decisions = fetch_model_responses(dbname,trial_range,ref_model);
 
 tic
 
 if shuffle_db
     % shuffle trial order
-    rng('shuffle')
-    all_trials = all_trials(:,randperm(tot_trials_db));
+    err('shuffle feature not enabled yet')
+%    rng('shuffle')
+%    trials = trials(:,randperm(tot_trials_db));
 end
 
 llh = zeros(ndiscount,1);
-parfor trn=1:ntrials
-    [lst, rst]=all_trials{:,trn};
+num_trials=trial_range(2)-trial_range(1)+1;
+parfor trn=1:num_trials
+    [lst, rst]=trials{1:2,trn}; % dunno if I should fix warning this...
     
     % read synthetic decision from db
     synthetic_decision = ref_decisions(trn);
@@ -67,7 +51,7 @@ parfor trn=1:ntrials
     
     % compute log-lh of each sample, for the 2 model pairs
     lhd=lhd_lin_sing_tr_gauss_clicks(synthetic_decision,...
-        nsd, k, T, lst', rst', gs'); % already log-likelihood
+        params.noise, params.kappa, params.T, lst', rst', gs'); 
     
     llh=llh+lhd;
 end
@@ -81,8 +65,9 @@ llh=llh+abs(max_val);
 posterior=llh2density(llh,dg);           % convert log-lh to density
 
 % plots for debugging
-subplot(2,1,1); plot(gs,llh)
-subplot(2,1,2); plot(gs,posterior)
+%subplot(2,1,1); plot(gs,llh)
+%subplot(2,1,2); plot(gs,posterior)
 
+fprintf('elapsed time to fit linear model to %s model\n',ref_model)
 toc
 end
