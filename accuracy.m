@@ -2,7 +2,7 @@ function acc=accuracy(model_type, model_params, dbname, trial_range)
 % computes the choice accuracy of a given model on a given set of trials
 % ARGS: 
 %   model_type      Either 'lin' or 'nonlin'
-%   params          struct with 2 fields:
+%   params          struct with at least these 2 fields:
 %                       disc = Value of discounting parameter
 %                       noise = STDEV of noise
 %   dbname          full path to .h5 file
