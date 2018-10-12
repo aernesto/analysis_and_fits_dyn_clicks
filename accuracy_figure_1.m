@@ -7,8 +7,8 @@ kappa=log(20/5);
 noise_vec=[.1,kappa,2*kappa];
 
 % discounting parameters to probe
-disc.lin=0:2:40;
-disc.nonlin=0:20;
+disc.lin=0:.5:10;
+disc.nonlin=0:.1:4;
 
 % get accuracy values
 dbname='~/programing/data/clicks/db1.h5';
