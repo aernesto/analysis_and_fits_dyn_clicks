@@ -1,5 +1,5 @@
-db_name,trial_start,trial_stop,script_name,commit,fit_model,ref_model,disc
-db1.h5,1,9000,fit_analysis_1.m,c20f184,lin,lin,4.8060
-db1.h5,1,9000,fit_analysis_1.m,c20f184,lin,nonlin,6.6583
-db1.h5,1,9000,fit_analysis_1.m,c20f184,nonlin,lin,0.3254
-db1.h5,1,9000,fit_analysis_1.m,c20f184,nonlin,nonlin,0.5507
+fit_id,db_name,trial_start,trial_stop,script_name,commit,fit_model,ref_model,disc
+1,db1.h5,1,9000,fit_analysis_1.m,c20f184,lin,lin,4.8060
+1,db1.h5,1,9000,fit_analysis_1.m,c20f184,lin,nonlin,6.6583
+1,db1.h5,1,9000,fit_analysis_1.m,c20f184,nonlin,lin,0.3254
+1,db1.h5,1,9000,fit_analysis_1.m,c20f184,nonlin,nonlin,0.5507
