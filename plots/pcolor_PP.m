@@ -12,11 +12,11 @@ load([data_folder,'joint_PP_LL_ntrials_999990_noise_2.mat'])
 [X,Y]=meshgrid(thetas_1,thetas_2);
 num_g=length(thetas_1);
 
-% for i=1:num_g
-%     for j=1:i-1
-%         PP(i,j)=PP(j,i);
-%     end
-% end
+for i=1:num_g
+    for j=1:i-1
+        PP(i,j)=PP(j,i);
+    end
+end
 
 
 [~,B]=max(PP);
@@ -64,23 +64,23 @@ ax1.FontSize=fs;
 
 
 
-% figure()
-% for ii=1:3
-%     ax=subplot(3,1,ii);
-%     n=ii*floor(num_g/3);
-%     plot(thetas_1,PP(n,:),'LineWidth',lw)
-%     [~,mx]=max(PP(n,:));
-%     hold on
-%     plot([thetas_1(n),thetas_1(n)],[ax.YLim(1),ax.YLim(2)],'--r',...
-%         'LineWidth',lw)
-%     plot([thetas_1(mx),thetas_1(mx)],[ax.YLim(1),ax.YLim(2)],'-k',...
-%         'LineWidth',lw-1)
-%     hold off
-%     title(['1M trials - ref \theta_1 = ',num2str(thetas_1(n))])
-%     xlabel('\theta_2')
-%     ylabel('PP')
-%     legend('PP','\theta_1=\theta_2','max')
-% end
+figure()
+for ii=1:3
+    ax=subplot(3,1,ii);
+    n=ii*floor(num_g/3);
+    plot(thetas_1,PP(n,:),'LineWidth',lw)
+    [~,mx]=max(PP(n,:));
+    hold on
+    plot([thetas_1(n),thetas_1(n)],[ax.YLim(1),ax.YLim(2)],'--r',...
+        'LineWidth',lw)
+    plot([thetas_1(mx),thetas_1(mx)],[ax.YLim(1),ax.YLim(2)],'-k',...
+        'LineWidth',lw-1)
+    hold off
+    title(['1M trials - ref \theta_1 = ',num2str(thetas_1(n))])
+    xlabel('\theta_2')
+    ylabel('PP')
+    legend('PP','\theta_1=\theta_2','max')
+end
 
 
 %% NL-NL
