@@ -1,3 +1,4 @@
+% produces whisker plots for predictive power
 clear
 a=load('../data/choice_match_100_4.mat');
 b=load('../data/choice_match_200_4.mat');
