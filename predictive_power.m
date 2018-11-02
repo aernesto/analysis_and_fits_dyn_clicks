@@ -11,7 +11,7 @@ function pp=predictive_power(target_model_type, target_model_params,...
 %   dbname          full path to .h5 file
 %   trial_range     must be an interval that fits within the db size
 % RETURNS:
-%   acc             accuracy value between 0 and 1
+%   pp             percent match value between 0 and 1
 
 % fetch trials (throw error if trial_range out of bounds) 
 trials=fetch_trials(dbname,trial_range);
