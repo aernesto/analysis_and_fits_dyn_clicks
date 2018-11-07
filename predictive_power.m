@@ -1,5 +1,5 @@
 function pp=predictive_power(target_model_type, target_model_params,...
-    ref_model_type, dbname, trial_range)
+    ref_model_type, dbname, trial_range, shuffle_db)
 % computes the predictive power (i.e. percent match in responses, of a 
 % given model on a given set of trials
 % ARGS: 
@@ -10,11 +10,12 @@ function pp=predictive_power(target_model_type, target_model_params,...
 %   ref_model_type         either 'lin' or 'nonlin'
 %   dbname          full path to .h5 file
 %   trial_range     must be an interval that fits within the db size
+%   shuffle_db 		boolean. If true, trials from db are randomly permuted
 % RETURNS:
 %   pp             percent match value between 0 and 1
 
 % fetch trials (throw error if trial_range out of bounds) 
-trials=fetch_trials(dbname,trial_range);
+trials=fetch_trials(dbname,trial_range,shuffle_db);
 
 % fetch responses from reference model (row vec)
 ref_model_choices=fetch_model_responses(dbname,trial_range,ref_model_type);

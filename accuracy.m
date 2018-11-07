@@ -11,7 +11,7 @@ function acc=accuracy(model_type, model_params, dbname, trial_range)
 %   acc             accuracy value between 0 and 1
 
 % fetch trials (throw error if trial_range out of bounds) 
-trials=fetch_trials(dbname,trial_range);
+trials=fetch_trials(dbname,trial_range,false);
 
 % fetch correct responses (row vec)
 correct_choices=fetch_correct_responses(dbname,trial_range);

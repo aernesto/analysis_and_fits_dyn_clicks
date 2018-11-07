@@ -21,19 +21,12 @@ dg=(gend-gstart)/(ndiscount-1);  % step between consecutive samples
 
 % database info (where the clicks data and other parameter values reside)
 params=fetch_params(dbname, ref_model);
-trials = fetch_trials(dbname,trial_range); % clicks data
+trials = fetch_trials(dbname,trial_range,shuffle_db); % clicks data
 
 % extract reference decisions into row vector:
 ref_decisions = fetch_model_responses(dbname,trial_range,ref_model);
 
 tic
-
-if shuffle_db
-    % shuffle trial order
-    err('shuffle feature not enabled yet')
-%    rng('shuffle')
-%    trials = trials(:,randperm(tot_trials_db));
-end
 
 llh = zeros(ndiscount,1);
 num_trials=trial_range(2)-trial_range(1)+1;
