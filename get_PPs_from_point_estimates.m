@@ -7,7 +7,7 @@ db_fits='db_fits.csv';
 db_name='/home/adrian/programing/data/clicks/db2.h5'; 
 
 % set parameters that specify the point estimates to fetch
-p.ref_model='lin';
+p.ref_model='nonlin';
 p.fit_model='nonlin';
 p.fit_id=1;             
 p.fit_method='max_pp';  
@@ -34,7 +34,7 @@ rows=strcmp(T.ref_model,p.ref_model)    & ...
  end
  pp.trial_stop=pp.trial_start+pp.num_trials-1;
  pp.db_name='db2.h5';
- pp.commit='commit';
+ pp.commit='7427db0';
  
  [~,name,~] = fileparts(mfilename); % parse current file name
  pp.script_name=[name,'.m'];
@@ -46,7 +46,7 @@ rows=strcmp(T.ref_model,p.ref_model)    & ...
  shuffle=false;
  
  fits_data_file=['/home/adrian/Documents/MATLAB/projects/',...
-                 'analysis_and_fits_dyn_clicks/test.csv'];
+                 'analysis_and_fits_dyn_clicks/db_PP.csv'];
 
  
  for i=1:length(point_estimates)
