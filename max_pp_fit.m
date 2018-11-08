@@ -3,7 +3,7 @@
 % outputs one csv file per model fit.
 clear
 tic
-commit='commit'; % commit number to insert in database of fits
+commit='b4bd270'; % commit number to insert in database of fits
 fit_id=1; % iteration of the fit with these settings
 models_to_fit={'lin','nonlin'};
 assumed_noise=1; % noise value assumed for the fit models
@@ -24,7 +24,7 @@ fits_data_file='/home/adrian/Documents/MATLAB/projects/analysis_and_fits_dyn_cli
 
 [~,name,~] = fileparts(mfilename); % parse current file name
 script_name=[name,'.m'];
-[~,name,ext] = fileparts(db_name); % parse current file name
+[~,name,ext] = fileparts(db_name); % parse database file name
 db_name_short = [name,ext];
 
 for ii=1:length(ref_models)
@@ -42,7 +42,7 @@ for ii=1:length(ref_models)
         % loop over fitting procedures
         for kk=1:num_fits
             
-            [estimates,max_pp]=find_max_pp(prior_range, num_samples,...
+            [estimates,~]=find_max_pp(prior_range, num_samples,...
     db_name,trial_range,fit_model,ref_model,assumed_noise,true);
 
             % write to file
