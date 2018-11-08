@@ -15,6 +15,8 @@ function pp=predictive_power(target_model_type, target_model_params,...
 % RETURNS:
 %   pp             percent match values between 0 and 1.
 %                  size(pp)=size(target_model_params.disc);
+% WARNING: the noise applied to the decisions of the reference model is
+% 'frozen', since the decisions are read off the database.
 
 % fetch data (throw error if trial_range out of bounds) 
 [trials,ref_model_choices]=fetch_trials_and_responses(dbname,...
