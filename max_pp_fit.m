@@ -2,8 +2,9 @@
 % dumps results in db_fits.csv
 % outputs one csv file per model fit.
 clear
+tbUseProject('analysis_and_fits_dyn_clicks');
 tic
-commit='b4bd270'; % commit number to insert in database of fits
+commit='7427db0'; % commit number to insert in database of fits
 fit_id=1; % iteration of the fit with these settings
 models_to_fit={'lin','nonlin'};
 assumed_noise=1; % noise value assumed for the fit models
@@ -17,7 +18,7 @@ fit_num_samples={num1,num2};
 db_name='/home/adrian/programing/data/clicks/db2.h5';
 db_params=fetch_params(db_name,'lin'); % second parameter is irrelevant here
 num_trials_in_db=db_params.tot_db_trials;
-num_trials=100;% want 100 and 500
+num_trials=500;% want 100 and 500
 trial_range=[1,num_trials]; % since trials will get shuffled, the range endpoints don't really matter
 num_fits=500;% want 500
 fits_data_file='/home/adrian/Documents/MATLAB/projects/analysis_and_fits_dyn_clicks/db_fits.csv';
