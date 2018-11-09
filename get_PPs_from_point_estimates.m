@@ -1,14 +1,15 @@
 % computes PP values corresponding to a cloud of point estimates
 clear
+tbUseProject('analysis_and_fits_dyn_clicks');
 tic
 db_fits='db_fits.csv';
 
 % database to use to compute percent match
-db_name='/home/adrian/programing/data/clicks/db2.h5'; 
+db_name='/home/adrian/programing/data/clicks/db3.h5'; 
 
 % set parameters that specify the point estimates to fetch
-p.ref_model='nonlin';
-p.fit_model='nonlin';
+p.ref_model='lin';
+p.fit_model='lin';
 p.fit_id=1;             
 p.fit_method='max_pp';  
 p.num_trials=100;       
@@ -33,8 +34,7 @@ rows=strcmp(T.ref_model,p.ref_model)    & ...
      pp.trial_start=101;
  end
  pp.trial_stop=pp.trial_start+pp.num_trials-1;
- pp.db_name='db2.h5';
- pp.commit='7427db0';
+ pp.commit='N/A';
  
  [~,name,~] = fileparts(mfilename); % parse current file name
  pp.script_name=[name,'.m'];
