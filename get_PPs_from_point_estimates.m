@@ -8,11 +8,11 @@ db_fits='db_fits.csv';
 db_name='/home/adrian/programing/data/clicks/db3.h5'; 
 
 % set parameters that specify the point estimates to fetch
-p.ref_model='nonlin';
-p.fit_model='nonlin';
+p.ref_model='lin';
+p.fit_model='lin';
 p.fit_id=1;             
 p.fit_method='max_pp';  
-p.num_trials=500;       
+p.num_trials=100;       
 p.db_name='db2.h5';
 
 % get point estimates from db_fits.csv
@@ -38,6 +38,9 @@ rows=strcmp(T.ref_model,p.ref_model)    & ...
  
  [~,name,~] = fileparts(mfilename); % parse current file name
  pp.script_name=[name,'.m'];
+ if strcmp(pp.script_name,'.m')
+     pp.script_name='get_PPs_from_point_estimates.m';
+ end
  
  [~,name,ext] = fileparts(db_name); % parse database file name
  pp.db_name = [name,ext];
@@ -47,13 +50,13 @@ rows=strcmp(T.ref_model,p.ref_model)    & ...
  
  fits_data_file=['/home/adrian/Documents/MATLAB/projects/',...
                  'analysis_and_fits_dyn_clicks/db_PP.csv'];
-
+             
+ target_model_params.noise=pp.noise;
  
  for i=1:length(point_estimates)
      target_model_params.disc=point_estimates(i);
-     target_model_params.noise=pp.noise;
      
-     percent_match=predictive_power(pp.fit_model, target_model_params,...
+     percent_match=predictive_power_onTheFly(pp.fit_model, target_model_params,...
      pp.ref_model, db_name, [pp.trial_start,pp.trial_stop], shuffle);
  
      % write to file
