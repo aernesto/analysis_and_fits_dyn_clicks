@@ -4065,8 +4065,8 @@ fit_id,db_name,trial_start,trial_stop,num_trials,script_name,commit,fit_model,re
 1,db3.h5,1,100,100,get_PPs_from_point_estimates.m,1caa74a,lin,nonlin,0.9000,max_pp
 1,db3.h5,1,100,100,get_PPs_from_point_estimates.m,1caa74a,lin,nonlin,0.9200,max_pp
 1,db3.h5,1,100,100,get_PPs_from_point_estimates.m,1caa74a,lin,nonlin,0.8900,max_pp
-1,1,db3.h5,db3.h5,101,600,1,500,100,100,get_PPs_from_point_estimates.m,.m,1caa74a,1caa74a,nonlin,lin,lin,nonlin,0.8600,0.9100,max_pp
-max_pp
+1,db3.h5,1,100,100,get_PPs_from_point_estimates.m,1caa74a,lin,nonlin,0.9100,max_pp
+1,db3.h5,101,600,500,get_PPs_from_point_estimates.m,1caa74a,nonlin,lin,0.8600,max_pp
 1,db3.h5,1,100,100,get_PPs_from_point_estimates.m,1caa74a,lin,nonlin,0.8900,max_pp
 1,db3.h5,1,100,100,get_PPs_from_point_estimates.m,1caa74a,lin,nonlin,0.9300,max_pp
 1,db3.h5,1,100,100,get_PPs_from_point_estimates.m,1caa74a,lin,nonlin,0.9200,max_pp
