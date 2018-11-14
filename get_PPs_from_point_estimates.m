@@ -8,11 +8,11 @@ db_fits='db_fits.csv';
 db_name='/home/adrian/programing/data/clicks/db3.h5'; 
 
 % set parameters that specify the point estimates to fetch
-p.ref_model='lin';
-p.fit_model='lin';
+p.ref_model='nonlin';
+p.fit_model='nonlin';
 p.fit_id=1;             
 p.fit_method='max_pp';  
-p.num_trials=100;       
+p.num_trials=500;       
 p.db_name='db2.h5';
 
 % get point estimates from db_fits.csv
@@ -34,7 +34,7 @@ rows=strcmp(T.ref_model,p.ref_model)    & ...
      pp.trial_start=101;
  end
  pp.trial_stop=pp.trial_start+pp.num_trials-1;
- pp.commit='1caa74a';
+ pp.commit='97f51fb';
  
  [~,name,~] = fileparts(mfilename); % parse current file name
  pp.script_name=[name,'.m'];
