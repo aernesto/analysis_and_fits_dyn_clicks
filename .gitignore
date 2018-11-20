@@ -2,3 +2,4 @@ accuracy_figure_*.log
 logs/*
 test.csv
 *.bak
+.Rhistory
