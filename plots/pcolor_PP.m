@@ -25,6 +25,9 @@ th1max=zeros(size(B));
 for i=1:length(B)
     th1max(i)=thetas_1(B(i));
 end
+nonZeros = find(PP);
+absMax = max(max(PP));
+absMin = min(min(PP(nonZeros)));
 
 % figure()
 % subplot(2,1,1)
@@ -44,12 +47,13 @@ end
 
 
 
-figure()
+figure(1)
 ax1=gca;
 pc=pcolor(ax1,X,Y,PP);
 colorbar
 set(pc,'EdgeColor','None')
 colormap('copper')
+caxis([absMin,absMax])
 hold on
 plot(ax1,thetas_1,th1max,'LineWidth',lw,'Color','red')
 %plot(ax1,th1max,thetas_1,'LineWidth',lw,'Color','red')
@@ -108,7 +112,9 @@ th1max=zeros(size(B));
 for i=1:length(B)
     th1max(i)=thetas_1(B(i));
 end
-
+nonZeros = find(PP);
+absMax = max(max(PP));
+absMin = min(min(PP(nonZeros)));
 % figure()
 % subplot(2,1,1)
 % plot(thetas_1,h1max,'LineWidth',lw)
@@ -132,6 +138,7 @@ pc=pcolor(ax1,X,Y,PP);
 set(pc,'EdgeColor','None')
 %shading flat
 colormap('copper')
+caxis([absMin,absMax])
 colorbar
 hold on
 plot(ax1,thetas_1,th1max,'LineWidth',lw,'Color','red')

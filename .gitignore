@@ -3,3 +3,16 @@ logs/*
 test.csv
 *.bak
 .Rhistory
+scatter_max_PP_100.fig
+scatter_max_PP_100.pdf
+scatter_max_PP_500.fig
+scatter_max_PP_500.pdf
+whiskers_max_PP_percent_match100.pdf
+whiskers_max_PP_percent_match500.pdf
+whiskers_max_PP_percent_match_100.fig
+whiskers_max_PP_percent_match_500.fig
+whiskers_max_PP_point_estimates_100.fig
+whiskers_max_PP_point_estimates_100.pdf
+whiskers_max_PP_point_estimates_500.fig
+whiskers_max_PP_point_estimates_500.pdf
+
