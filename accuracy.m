@@ -1,4 +1,4 @@
-function acc=accuracy(model_type, model_params, dbname, trial_range)
+function acc=accuracy(model_type, model_params, dbname, trial_range, toSkip, varargin)
 % computes the choice accuracy of a given model on a given set of trials
 % ARGS: 
 %   model_type      Either 'lin' or 'nonlin'
@@ -7,6 +7,10 @@ function acc=accuracy(model_type, model_params, dbname, trial_range)
 %                       noise = STDEV of noise
 %   dbname          full path to .h5 file
 %   trial_range     must be an interval that fits within the db size
+%   toSkip          row vector containing trial indices to skip. Should be
+%                   empty if all trials in DB are to be used
+%   varargin        Value, Name pair to pass to fetch_params
+%                   
 % RETURNS:
 %   acc             accuracy value between 0 and 1
 
@@ -17,7 +21,13 @@ trials=fetch_trials(dbname,trial_range,false);
 correct_choices=fetch_correct_responses(dbname,trial_range);
 
 % fetch necessary parameters
-db_params=fetch_params(dbname,model_type);
+db_params=fetch_params(dbname, model_type, varargin);
+
+% remove problematic trials if needed
+if toSkip
+    trials(:,toSkip)=[];
+    correct_choices(:,toSkip)=[];
+end
 
 % compute model's choices
 num_trials=length(correct_choices);

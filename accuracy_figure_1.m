@@ -1,18 +1,27 @@
 % produce accuracy figure described here
 % https://paper.dropbox.com/doc/Figure-4-design--APE0_g8NTsvVZxTg2DUyd6WvAg-nlH9WGli5QW8x41ZJbGlJ#:h2=Accuracy-as-function-of-discou
 clear
-tbUseProject('analysis_and_fits_dyn_clicks');
+%tbUseProject('analysis_and_fits_dyn_clicks');
 data_folder='~/programing/data/clicks/';
-dbname=[data_folder,'db1.h5'];
-trial_range=[1,10000];
+dbname=[data_folder,'validation2.h5'];
+
+% bad trials for validation2.h5 dataset (if all trials are fine, set to
+% empty vector)
+bad_trials=[];%[93737,207048,229626,272270,555142,631387,666886,774387,811388,961053];
+
+% range of trials to use from db
+trial_range=[1,500];
+
+% start timer
 tic
+
 % noise levels
 kappa=log(20/5);
-noise_vec=[.1,kappa,2*kappa];
+noise_vec=[.1,1,2];
 
 % discounting parameters to probe
 disc.lin=0:.5:10;
-disc.nonlin=[0:.01:.09,.1:.1:1];
+disc.nonlin=[0:.001:009,.01:.01:.09,.1:.1:1];
 
 % get accuracy values
 
@@ -35,10 +44,10 @@ for s=1:num_combinations
     for disc_case=1:length(disc_vec)
         model_params.disc=disc_vec(disc_case);
         curve(disc_case)=accuracy(model_type, model_params, dbname,...
-            trial_range);
+            trial_range, bad_trials, 'pureTrials', true);
     end
     acc_store{s}=curve;
 end
 toc
-save([data_folder,'accuracy_figure_1.mat']);
+save([data_folder,'accuracy_figure_3.mat']);
 
