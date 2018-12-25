@@ -143,6 +143,16 @@ end
 
 legend('max','diag','Location','southeast')
 ax=gca; ax.FontSize=fs;
-% ------ save to file
 
+% ------ save to file
+if saveFlag
+    figNum = '1';
+    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'.png'];
+    saveas(fig1, fileNameForSave)
+    figNum = '2';
+    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'.png'];
+    saveas(fig2, fileNameForSave)
+    figNum = '3';
+    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'.png'];
+    saveas(fig3, fileNameForSave)
 end
