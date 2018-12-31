@@ -1,23 +1,23 @@
 % produce accuracy figure described here
 % https://paper.dropbox.com/doc/Figure-4-design--APE0_g8NTsvVZxTg2DUyd6WvAg-nlH9WGli5QW8x41ZJbGlJ#:h2=Accuracy-as-function-of-discou
-clear
+clear all
 rng('shuffle') % change seed if reproducibility desired
 
-%tbUseProject('analysis_and_fits_dyn_clicks');
+tbUseProject('analysis_and_fits_dyn_clicks');
 
 % where to get the trials data from (only the click streams and envt)
 data_folder='~/programing/data/clicks/';
 dbname=[data_folder,'validation2.h5'];
 
 % file name into which data for figure should be saved
-dataToSave = [data_folder,'accuracy_figure_8.mat'];
+dataToSave = [data_folder,'accuracy_figure_9.mat'];
 
 % bad trials for validation2.h5 dataset (if all trials are fine, set to
 % empty vector)
-bad_trials=[93737];%[93737,207048,229626,272270,555142,631387,666886,774387,811388,961053];
+bad_trials=[93737,207048,229626,272270,555142,631387,666886,774387,811388,961053];
 
 % range of trials to use from db
-trial_range=[1,100000];
+trial_range=[1,1000000];
 
 % start timer
 tic
