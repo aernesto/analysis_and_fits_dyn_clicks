@@ -1,7 +1,7 @@
 %% load workspace
 clear all
 data_folder='~/programing/data/clicks/';
-load([data_folder,'accuracy_figure_8.mat'])
+load([data_folder,'accuracy_figure_9.mat'])
 %%
 sf=17 * .8; fs=20; lw=3;
 
@@ -94,3 +94,6 @@ ax2.FontSize=fs;
 ax2.Box = 'off';
 xticks(0:0.5:1.5)
 yticks(myyticks)
+
+% save figure
+savefig('accuracy_figure_9.fig')
