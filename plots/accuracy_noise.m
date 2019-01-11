@@ -1,40 +1,41 @@
-%% load workspace
-clear all
-data_folder='~/programing/data/clicks/';
-load([data_folder,'accuracy_figure_9.mat'])
-%%
-sf=17 * .8; fs=20; lw=3;
+function accuracy_noise()
+global sf fs lw
 
 fig = figure();
-fig.OuterPosition=[680 542 966 528];
+fig.OuterPosition=[680 542 2000 528];
 %panel A for linear model
-ax1=subplot(1,2,1);
-p1=plot(disc.lin,acc_store{1},'LineWidth',lw);
-ylim=[.5,1];
+ax1=subplot(1,3,1);
+
+
+data_folder='~/programing/data/clicks/';
+panAB_data = load([data_folder,'accuracy_figure_9.mat']);
+
+p1=plot(ax1,panAB_data.disc.lin,panAB_data.acc_store{1},'LineWidth',lw);
+yylim=[.5,1];
 myyticks=[.5,.7,.9];
-ax1.YLim = ylim;
+ax1.YLim = yylim;
 
 hold on
-p2=plot(disc.lin,acc_store{2},'LineWidth',lw);
-p3=plot(disc.lin,acc_store{3},'LineWidth',lw);
+p2=plot(panAB_data.disc.lin,panAB_data.acc_store{2},'LineWidth',lw);
+p3=plot(panAB_data.disc.lin,panAB_data.acc_store{3},'LineWidth',lw);
 
 % vertical lines for maxima
-pp1=vline(disc.lin,acc_store{1}, p1);
-pp2=vline(disc.lin,acc_store{2}, p2);
-pp3=vline(disc.lin,acc_store{3}, p3);
+pp1=vline(ax1, panAB_data.disc.lin,panAB_data.acc_store{1}, p1);
+pp2=vline(ax1, panAB_data.disc.lin,panAB_data.acc_store{2}, p2);
+pp3=vline(ax1, panAB_data.disc.lin,panAB_data.acc_store{3}, p3);
 
 hold off
-ylabel('accuracy')
-xlabel('\gamma')
-title('L')
-legend(['\sigma=',num2str(noise_vec(1))],...
-    ['\sigma=',num2str(noise_vec(2))],...
-    ['\sigma=',num2str(noise_vec(3))],...
+ax1.YLabel.String = 'accuracy';
+ax1.XLabel.String = '\gamma';
+ax1.Title.String = 'L';
+legend(ax1, ['\sigma=',num2str(panAB_data.noise_vec(1))],...
+    ['\sigma=',num2str(panAB_data.noise_vec(2))],...
+    ['\sigma=',num2str(panAB_data.noise_vec(3))],...
     'Location','northwest','FontSize',sf)
 ax1.FontSize=fs;
 ax1.Box = 'off';
-xticks(0:5:10)
-yticks(myyticks)
+ax1.XTick = 0:5:10;
+ax1.YTick = myyticks;
 
 
 % arrow
@@ -49,31 +50,31 @@ y_offset = ax1.Position(2);
 x_norm = (x_unnorm / x_axis_width) * x_axis2fig_ratio + x_offset;
 y_norm = y_unnorm - ax1.YLim(1) + y_offset;
 
-annotation('textarrow',x_norm,y_norm,'String','max', 'FontSize',sf)
+annotation(fig,'textarrow',x_norm,y_norm,'String','max', 'FontSize',sf)
 
 
 
 % panel B for nonlinear model
-ax2=subplot(1,2,2);
-p4=plot(disc.nonlin,acc_store{4},'LineWidth',lw);
+ax2=subplot(1,3,2);
+p4=plot(ax2, panAB_data.disc.nonlin,panAB_data.acc_store{4},'LineWidth',lw);
 
-ax2.YLim = ylim;
+ax2.YLim = yylim;
 
 hold on
 
-p5=plot(disc.nonlin,acc_store{5},'LineWidth',lw);
-p6=plot(disc.nonlin,acc_store{6},'LineWidth',lw);
+p5=plot(ax2, panAB_data.disc.nonlin,panAB_data.acc_store{5},'LineWidth',lw);
+p6=plot(ax2, panAB_data.disc.nonlin,panAB_data.acc_store{6},'LineWidth',lw);
 
-pp4=vline(disc.nonlin,acc_store{4}, p4);
-pp5=vline(disc.nonlin,acc_store{5}, p5);
-pp6=vline(disc.nonlin,acc_store{6}, p6);
+pp4=vline(ax2, panAB_data.disc.nonlin,panAB_data.acc_store{4}, p4);
+pp5=vline(ax2, panAB_data.disc.nonlin,panAB_data.acc_store{5}, p5);
+pp6=vline(ax2, panAB_data.disc.nonlin,panAB_data.acc_store{6}, p6);
 
 hold off
-xlabel('h')
-title('NL')
-legend(['\sigma=',num2str(noise_vec(1))],...
-    ['\sigma=',num2str(noise_vec(2))],...
-    ['\sigma=',num2str(noise_vec(3))],...
+ax2.XLabel.String = 'h';
+ax2.Title.String = 'NL';
+legend(ax2,['\sigma=',num2str(panAB_data.noise_vec(1))],...
+    ['\sigma=',num2str(panAB_data.noise_vec(2))],...
+    ['\sigma=',num2str(panAB_data.noise_vec(3))],...
     'Location','northwest','FontSize',sf)
 
 % arrow
@@ -88,12 +89,13 @@ y_offset = ax2.Position(2);
 x_norm = (x_unnorm / x_axis_width) * x_axis2fig_ratio + x_offset;
 y_norm = y_unnorm - ax2.YLim(1) + y_offset;
 
-annotation('textarrow',x_norm,y_norm,'String','max', 'FontSize',sf)
+annotation(fig,'textarrow',x_norm,y_norm,'String','max', 'FontSize',sf)
 
 ax2.FontSize=fs;
 ax2.Box = 'off';
-xticks(0:0.5:1.5)
-yticks(myyticks)
+ax2.XTick = 0:0.5:1.5;
+ax2.YTick = myyticks;
 
 % save figure
-savefig('accuracy_figure_9.fig')
+%savefig('accuracy_figure_9.fig')
+end
