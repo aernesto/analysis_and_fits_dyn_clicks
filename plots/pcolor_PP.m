@@ -14,6 +14,8 @@ function pcolor_PP(model_pair, data_folder, data_file_name, noiseVal, saveFlag)
 %   saveFlag: true or false % if true, saves figures to files
 % RETURNS:
 %   nothing, but creates plots and saves them to file if saveFlag is true
+% DESCRIPTION:
+%  
 
 fs=20; % font size
 lw=3; % linewidth
@@ -33,14 +35,7 @@ for i=1:length(B)
     th1max(i)=SS.thetas_1(B(i));
 end
 
-% set the upper-left part of the domain to 1 so that it gets plotted in
-% white in the colormap
-% num_x=length(SS.thetas_1);
-% for i=1:num_x
-%    for j=1:i-1
-%        SS.PP(i,j)=1;
-%    end
-% end
+
 
 % set cutoff values for colormap
 %nonZeros = find(PP);
@@ -70,6 +65,16 @@ colormap(cmap)
 
 %% ------- run a second time without colorbar -------------%
 
+% set the upper-left part of the domain to 1 so that it gets plotted in
+% white in the colormap
+num_x=length(SS.thetas_1);
+for i=1:num_x
+   for j=1:i-1
+       SS.PP(i,j)=1;
+   end
+end
+
+
 fig2 = figure(); 
 ax1=gca;
 pc=pcolor(ax1,X,Y,SS.PP);
@@ -86,7 +91,7 @@ caxis([absMin,absMax])
 
 % set the colormap for the heatmap
 cmap = colormap('copper');
-%cmap(end,:) = [1,1,1];
+cmap(end,:) = [1,1,1];
 colormap(cmap)
 
 hold on
@@ -114,10 +119,19 @@ elseif strcmp(model_pair,'NL-NL')
     ax1.YAxis.TickValues = [0,2.5];
 end
 ax1.FontSize=fs;
-legend([ridge_curve, diag_curve],{'max','diag'},'Location','west',...
-    'FontSize', inset_fs)
 
+[LEGEND,hObj] = legend([ridge_curve, diag_curve],{'max','diag'},...
+    'Location','west',...
+    'FontSize', inset_fs,...
+    'Box','off');
+old_pos = get(LEGEND,'Position');
+legend_horiz_pos = .4;
+new_pos = old_pos; 
+new_pos(2) = legend_horiz_pos;
+set(LEGEND,'Position',new_pos)
 
+hL=findobj(hObj,'type','line'); 
+set(hL,'linewidth',1.8) 
 %% --------------------------------------------%
 
 % produce inset
@@ -139,17 +153,18 @@ elseif strcmp(model_pair,'NL-NL')
 end
 
 ax=gca; ax.FontSize=inset_fs;
+ax.Box = 'off';
 ax.Position = inset_factor * ones(1,4);
 
 %% ------ save to file
 if saveFlag
-    figNum = '1';
-    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'.png'];
+    figNum = '1_';
+    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'FINAL.png'];
     saveas(fig1, fileNameForSave)
-    figNum = '2';
-    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'.png'];
+    figNum = '2_';
+    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'FINAL.png'];
     saveas(fig2, fileNameForSave)
-    figNum = '3';
-    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'.png'];
+    figNum = '3_';
+    fileNameForSave = ['fig',figNum,model_pair,num2str(noiseVal),'FINAL.png'];
     saveas(fig3, fileNameForSave)
 end
